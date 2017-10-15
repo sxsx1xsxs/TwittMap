@@ -26,7 +26,7 @@ host = es_config['host']
 MAX_TWITTS = 300000
 
 class Listener(StreamListener): # Inheritance
-    id = 10730
+    id = 1
     bulk_file = ''
 
     awsauth = AWS4Auth(AWS_ACCESS_KEY, AWS_SECRET_KEY, region, service)
@@ -42,8 +42,7 @@ class Listener(StreamListener): # Inheritance
     )
 
     def on_data(self, data):
-
-        self.bulk_file += '{ "index" : { "_index" : "twitts", "_type" : "twitter", "_id" : "' + str(self.id % MAX_TWITTS) + '" } }\n'
+        self.bulk_file += '{ "index" : { "_index" : "twitts_10keys", "_type" : "twitter", "_id" : "' + str(self.id % MAX_TWITTS) + '" } }\n'
 
         self.bulk_file += json.dumps(json.loads(data)) + '\n'
         self.id += 1
@@ -61,4 +60,4 @@ if __name__ == '__main__':
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 
     twitterStream = Stream(auth, Listener())
-    twitterStream.filter(track=['trump', 'job'])
+    twitterStream.filter(track=['trump', 'columbia', 'china', 'sundaymorning', 'rockets', 'nyc', 'nba', 'google', 'facebook', 'job'], async=True)
