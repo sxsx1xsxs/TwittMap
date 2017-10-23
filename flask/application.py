@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 from configobj import ConfigObj
@@ -8,6 +9,7 @@ from es_conn import es_conn
 PATH_TO_INI = './keys.ini'
 
 application = Flask(__name__)
+CORS(application)
 
 @application.route('/')
 def hello_world():
