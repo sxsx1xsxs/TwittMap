@@ -7,3 +7,6 @@ A web app using AWS Cloud Service for 2017 Fall Cloud Computing & Big Data class
 | URL | http://flask-es.us-east-1.elasticbeanstalk.com/keyword/\<keyword>/size/\<size> |
 | URL Params | **Required**: <br> \<keyword>, \<size>=[integer] <br>**Example**: http://flask-es.us-east-1.elasticbeanstalk.com/keyword/trump/size/10 |
 | Data Params | {u : {"coordiantes" : [integer, integer], "text" : [string],     "id" : [integer]}} <br> **Example**: {"coordinates": [-48.76708459542083, -94.    37075012624818], "text": "RT @ostfale: @thehill Keep #Trump busy with tweets     and let\u2019s people like Tillerson do the job", "id": 919623369988898816}     |
+|---|---|
+| URL | http://flask-es.us-east-1.elasticbeanstalk.com/keyword/<keyword>/distance/\<distance>/lat/\<lat>/lon/\<lon> |
+| URL Params | **Required**: <br> \<keyword> <br> \<distance> <br> \<lat>=[float]: latitude + 90.0 <br> \<lon>=[float]: longitude + 180.0 |
