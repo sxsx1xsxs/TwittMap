@@ -10,7 +10,7 @@ from configobj import ConfigObj
 import random
 import time
 
-PATH_TO_INI = '..\\config\\keys.ini'
+PATH_TO_INI = 'keys.ini'
 config = ConfigObj(PATH_TO_INI)
 twitter_config = config['Twitter']
 es_config = config['es']
