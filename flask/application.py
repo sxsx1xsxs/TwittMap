@@ -4,6 +4,7 @@ from requests_aws4auth import AWS4Auth
 from configobj import ConfigObj
 import json
 import random
+from flask import render_template
 from es_conn import es_conn
 PATH_TO_INI = './keys.ini'
 
@@ -11,7 +12,7 @@ application = Flask(__name__)
 
 @application.route('/')
 def hello_world():
-    return 'Hello World!'
+    return render_template("search.html")
 
 @application.route('/keyword/<keyword>/size/<int:size>')
 def show_twitts(keyword, size):
