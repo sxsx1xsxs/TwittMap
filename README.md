@@ -10,3 +10,7 @@ A web app using AWS Cloud Service for 2017 Fall Cloud Computing & Big Data class
 |---|---|
 | URL | http://flask-es.us-east-1.elasticbeanstalk.com/keyword/\<keyword>/distance/\<distance>/lat/\<lat>/lon/\<lon> |
 | URL Params | **Required**: <br> \<keyword> <br> \<distance> <br> \<lat>=[float]: latitude + 90.0 <br> \<lon>=[float]: longitude + 180.0 <br>**Example**: <br>http://flask-es.us-east-1.elasticbeanstalk.com/keyword/china/distance/1200/lat/160.0/lon/140.0|
+
+
+## Front End URL
+http://flask-env.pptffrafzq.us-east-1.elasticbeanstalk.com
