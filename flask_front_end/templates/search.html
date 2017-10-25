@@ -259,13 +259,11 @@ clearMarkers();
         console.log(x);
         $.getJSON(x, function(result) {
             $.each(result, function(i, field) {
-            <!--console.log('item');-->
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(field.coordinates[0], field.coordinates[1]),
                     map: map,
                     icon: 'https://c1.staticflickr.com/5/4493/37583223730_7c9ac52943_o.png'
                 });
-                <!--console.log(field.coordinates[0]);-->
                 markers.push(marker);
                 //Attach click event handler to the marker.
                 google.maps.event.addListener(marker, "click", function(e) {
