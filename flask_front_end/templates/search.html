@@ -33,12 +33,12 @@
 <body>
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
         <div class="navbar-brand">Twitt Map</div>
+        <div class="navbar-text">Please select a keyword from the dropdown menu</div>
         <ul class="navbar-nav mr-auto">
         </ul>
         <li class="nav-item mr-sm-2 my-lg-0">
             <select data-placeholder=" Keyword Select" style="width:300px;" class="chosen-select" name="category" id="category">
-                <option value="">Please select a keyword</option>
-                <option>trump</option>
+                <option value="trump">trump</option>
                 <option>columbia</option>
                 <option>china</option>
                 <option>sundaymorning</option>
@@ -74,8 +74,8 @@
     <script>
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 3,
-            center: { lat: 0, lng: 0 },
+            zoom: 2,
+            center: { lat: 30, lng: 50 },
             mapTypeId: 'terrain'
         });
      map.addListener('click', function(e) {
@@ -104,7 +104,14 @@ function placeMarkerAndPanTo(latLng, map) {
                      lng=marker.position.lng()+180.0;
                     infoWindow.setContent(
                     '<p>Please choose a range to show twitts around this point</p>' +
-                '<button onclick="rangeTwitts('+lat+','+lng+')">Click me</button>'
+                    '<select id="distance" name="distance">'+
+                    '<option value="2000">2000 KM</option>'+
+                    '<option value="1000">1000 KM</option>'+
+                    '<option value="500">500 KM</option>'+
+                    '<option value="200">200 KM</option>'+
+                    '<option value="100">100 KM</option>'+
+                    '</select>'+
+                '<button onclick="rangeTwitts('+lat+','+lng+', distance.value)">Submit</button>'
 
                 );
 
@@ -116,11 +123,10 @@ function placeMarkerAndPanTo(latLng, map) {
 
 }
 
-function rangeTwitts(lat,lng){
+function rangeTwitts(lat,lng,distance){
 clearMarkers();
 
-
-        x = 'http://flask-es.us-east-1.elasticbeanstalk.com/keyword/china/distance/1200/lat/'+lat+'/lon/'+lng;
+        x = 'http://flask-es.us-east-1.elasticbeanstalk.com/distance/'+distance+'/lat/'+lat+'/lon/'+lng;
         console.log(x);
         $.getJSON(x, function(result) {
             $.each(result, function(i, field) {
@@ -157,14 +163,15 @@ clearMarkers();
         markers = [];
     }
 
-    function myfunction(x) {
+    function myfunction(key) {
         clearMarkers();
-        x = 'http://flask-es.us-east-1.elasticbeanstalk.com/keyword/' + x + '/size/100';
+        x = 'http://flask-es.us-east-1.elasticbeanstalk.com/keyword/' + key + '/size/100';
         $.getJSON(x, function(result) {
             $.each(result, function(i, field) {
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(field.coordinates[0], field.coordinates[1]),
-                    map: map
+                    map: map,
+                    icon: 'https://c1.staticflickr.com/5/4467/37823215366_b39c2a9746_o.png'
                 });
                 markers.push(marker);
                 //Attach click event handler to the marker.
@@ -181,21 +188,11 @@ clearMarkers();
         });
     }
 
-    function getAjax() {
-        $.ajax({
-            type: "GET",
-            url: 'http://flask-es.us-east-1.elasticbeanstalk.com/keyword/trump/size/100',
-            success: function(response) {
-                // $(document.body).append('<div>' + response + '</div>');
-            }
-            // success: function(data){
-            //       console.log(data);
-            //   }
-        });
-    }
+
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA95tPzMSrM5uiKcoBgbYgxX47MYFBE9c4&callback=initMap">
     </script>
+<div>Also, you can click anywhere on the map to search for twitts around that point</div>
 </body>
 
 </html>
