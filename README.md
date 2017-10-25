@@ -16,8 +16,8 @@ A web app using AWS Cloud Service for 2017 Fall Cloud Computing & Big Data class
 http://flask-env.pptffrafzq.us-east-1.elasticbeanstalk.com
 
 ## Contributor
-* Yi Zhang
-* Zhijian Jiang
+* [Yi Zhang](https://github.com/sxsx1xsxs)
+* [Zhijian Jiang](https://github.com/ZhijianJiang)
 
 ## Acknowledgement
-* Kaimao Yang
+* [Kaimao Yang](https://github.com/ReggieYang)
