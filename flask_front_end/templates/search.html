@@ -70,25 +70,93 @@
     </nav>
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div id="map"></div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-    //use = {{coords}}
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 3,
             center: { lat: 0, lng: 0 },
             mapTypeId: 'terrain'
         });
-    }
+     map.addListener('click', function(e) {
+    placeMarkerAndPanTo(e.latLng, map);
+  });
+}
+
+function placeMarkerAndPanTo(latLng, map) {
+  clearMarkers();
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: map
+  });
+  map.panTo(latLng);
+  markers.push(marker);
+
+  var lat;
+  var lng;
+
+  google.maps.event.addListener(marker, "click", function(e) {
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: 'hi'
+                    });
+
+                     lat=marker.position.lat()+90.0;
+                     lng=marker.position.lng()+180.0;
+                    infoWindow.setContent(
+                    '<p>Please choose a range to show twitts around this point</p>' +
+                '<button onclick="rangeTwitts(lat,lng)">Click me</button>'
+
+                );
+
+                    infoWindow.open(map, marker);
+
+
+
+                });
+
+}
+
+function rangeTwitts(lat,lng){
+console.log('i am here');
+clearMarkers();
+
+        x = 'http://flask-es.us-east-1.elasticbeanstalk.com/keyword/china/distance/1200/lat/160.0/lon/140.0';
+        $.getJSON(x, function(result) {
+            $.each(result, function(i, field) {
+            console.log('item');
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(field.coordinates[0], field.coordinates[1]),
+                    map: map
+                });
+                console.log(field.coordinates[0]);
+                markers.push(marker);
+                //Attach click event handler to the marker.
+                google.maps.event.addListener(marker, "click", function(e) {
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: field.text
+                    });
+                    infoWindow.open(map, marker);
+
+
+
+                });
+            });
+        });
+}
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
     var markers = [];
 
-    function myfunction(x) {
-        for (var i = 0; i < markers.length; i++) {
+    function clearMarkers(){
+    for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }
         markers = [];
+    }
+
+    function myfunction(x) {
+        clearMarkers();
         x = 'http://flask-es.us-east-1.elasticbeanstalk.com/keyword/' + x + '/size/100';
         $.getJSON(x, function(result) {
             $.each(result, function(i, field) {
