@@ -31,15 +31,16 @@
 </head>
 
 <body>
+
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
         <div class="navbar-brand">Twitt Map</div>
-        <ul class="navbar-nav mr-auto">
-        </ul>
-        <li class="nav-item mr-sm-2 my-lg-0">
+        <ul class="navbar-nav mr-auto"></ul>
+        <form class="form-inline my-2 my-lg-0">
+            <div class="navbar-text">Please select a keyword from the dropdown menu  &nbsp</div>
+        <li class="form-control mr-sm-2">
             <select data-placeholder=" Keyword Select" style="width:300px;" class="chosen-select" name="category" id="category">
-                <option value="">Please select a keyword</option>
-                <option>trump</option>
-                <option>columbia</option>
+                <option value="trump">trump</option>
+                <option value="columbia">columbia</option>
                 <option>china</option>
                 <option>sundaymorning</option>
                 <option>rockets</option>
@@ -67,7 +68,9 @@
             </script>
         </li>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="myfunction(category.value)">Submit</button>
+        </form>
     </nav>
+
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div id="map"></div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -97,14 +100,16 @@ function placeMarkerAndPanTo(latLng, map) {
 
   google.maps.event.addListener(marker, "click", function(e) {
                     var infoWindow = new google.maps.InfoWindow({
-                        content: 'hi'
+                        content: 'hi',
+                        lat:1.0,
+                        lng:8.0
                     });
 
                      lat=marker.position.lat()+90.0;
                      lng=marker.position.lng()+180.0;
                     infoWindow.setContent(
                     '<p>Please choose a range to show twitts around this point</p>' +
-                '<button onclick="rangeTwitts(lat,lng)">Click me</button>'
+                    '<button onclick="rangeTwitts('+lat+','+lng+')">Click me</button>'
 
                 );
 
@@ -117,18 +122,20 @@ function placeMarkerAndPanTo(latLng, map) {
 }
 
 function rangeTwitts(lat,lng){
-console.log('i am here');
 clearMarkers();
 
-        x = 'http://flask-es.us-east-1.elasticbeanstalk.com/keyword/china/distance/1200/lat/160.0/lon/140.0';
+
+        x = 'http://flask-es.us-east-1.elasticbeanstalk.com/keyword/china/distance/1200/lat/'+lat+'/lon/'+lng;
+        console.log(x);
         $.getJSON(x, function(result) {
             $.each(result, function(i, field) {
-            console.log('item');
+            <!--console.log('item');-->
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(field.coordinates[0], field.coordinates[1]),
-                    map: map
+                    map: map,
+                    icon: 'https://c1.staticflickr.com/5/4493/37583223730_7c9ac52943_o.png'
                 });
-                console.log(field.coordinates[0]);
+                <!--console.log(field.coordinates[0]);-->
                 markers.push(marker);
                 //Attach click event handler to the marker.
                 google.maps.event.addListener(marker, "click", function(e) {
@@ -158,8 +165,10 @@ clearMarkers();
     function myfunction(x) {
         clearMarkers();
         x = 'http://flask-es.us-east-1.elasticbeanstalk.com/keyword/' + x + '/size/100';
+        console.log(x);
         $.getJSON(x, function(result) {
             $.each(result, function(i, field) {
+            console.log(field.coordinates[0]);
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(field.coordinates[0], field.coordinates[1]),
                     map: map
