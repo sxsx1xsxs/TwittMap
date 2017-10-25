@@ -16,7 +16,7 @@
     }
 
     #map {
-        height: 400px;
+        height: 80%;
         width: 100%;
     }
 
@@ -72,10 +72,138 @@
     <div id="map"></div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+    var stylesArray = [
+        {
+            "featureType": "administrative",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "saturation": "-100"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative.province",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "landscape",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "saturation": -100
+                },
+                {
+                    "lightness": 65
+                },
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "poi",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "saturation": -100
+                },
+                {
+                    "lightness": "50"
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "saturation": "-100"
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "lightness": "30"
+                }
+            ]
+        },
+        {
+            "featureType": "road.local",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "lightness": "40"
+                }
+            ]
+        },
+        {
+            "featureType": "transit",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "saturation": -100
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "water",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "hue": "#ffff00"
+                },
+                {
+                    "lightness": -25
+                },
+                {
+                    "saturation": -97
+                }
+            ]
+        },
+        {
+            "featureType": "water",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "lightness": -25
+                },
+                {
+                    "saturation": -100
+                }
+            ]
+        }
+    ]
+
+
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 3,
-            center: { lat: 30, lng: 50 },
+            center: { lat: 40, lng: 0 },
+            // styles: stylesArray
             mapTypeId: 'terrain'
         });
      map.addListener('click', function(e) {
@@ -94,6 +222,7 @@ function placeMarkerAndPanTo(latLng, map) {
 
   var lat;
   var lng;
+
 
   google.maps.event.addListener(marker, "click", function(e) {
                     var infoWindow = new google.maps.InfoWindow({
@@ -171,7 +300,7 @@ clearMarkers();
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(field.coordinates[0], field.coordinates[1]),
                     map: map,
-                    icon: 'https://c1.staticflickr.com/5/4467/37823215366_b39c2a9746_o.png'
+                    icon: 'https://c1.staticflickr.com/5/4493/37583223730_7c9ac52943_o.png'
                 });
                 markers.push(marker);
                 //Attach click event handler to the marker.
