@@ -34,7 +34,7 @@ def show_twitts(keyword, size):
 def geo_search(distance, lat, lon):
     es = es_conn(PATH_TO_INI)
     obj = {"query": {"bool": {"must": {"match_all" : {}}, "filter": {"geo_distance": {"distance": distance+"km", "cor2" : {"lat": lat - 90, "lon" : lon - 180}}}}}}
-    dict = es.search(index="twitters", doc_type="twitter", body = json.dumps(obj), size = 1000)['hits']['hits']
+    dict = es.search(index="twitters", doc_type="twitter", body = json.dumps(obj), size = 4000)['hits']['hits']
     search_result = [] 
     for row in dict:
          if 'id' not in row['_source'] or 'text' not in row['_source']:
