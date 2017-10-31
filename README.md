@@ -13,7 +13,7 @@ A web app using AWS Cloud Service for 2017 Fall Cloud Computing & Big Data class
 
 
 ## Front End URL
-http://flask-env.pptffrafzq.us-east-1.elasticbeanstalk.com
+http://flask-env.nrq2htzwqb.us-east-1.elasticbeanstalk.com
 
 ## Contributor
 * [Yi Zhang](https://github.com/sxsx1xsxs)
